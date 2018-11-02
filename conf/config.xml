@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <server>
+        <auth>true</auth>
+        <logPath>/tmp/dagent/dagent.log</logPath>
+        <remoteHost>0.0.0.0</remoteHost>
+    </server>
+    <nginx>
+        <confdDir>/tmp/dagent/conf.d</confdDir>
+        <cmdStart>ls</cmdStart>
+        <cmdStop>ls -l</cmdStop>
+        <cmdReload>ls -l</cmdReload>
+        <cmdTest>ls -l</cmdTest>
+    </nginx>
+</config>

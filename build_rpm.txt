@@ -1,0 +1,9 @@
+yum install rpmdevtools
+
+#生成RPM目录
+cd ~
+rpmdev-setuptree
+
+编辑spec文件
+
+rpmbuild -bb dagent.spec

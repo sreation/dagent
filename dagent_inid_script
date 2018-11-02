@@ -1,0 +1,78 @@
+#!/bin/sh
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DESC="Dagent Daemon"
+NAME=dagent
+PREFIX=/usr/local
+DAEMON=$PREFIX/bin/$NAME
+CONF=/etc/$NAME/config.xml
+SCRIPTNAME=dagent_inid_script
+SCRIPT=/etc/init.d/$SCRIPTNAME
+LOGPATH=/var/log
+NOHUPPATH=$LOGPATH/dagent.out
+PID=`ps -ef|grep dagent|grep -v grep|grep -v $SCRIPTNAME|awk '{print $2}'`
+
+if [ ! -x "$DAEMON" ] || [ ! -f "$CONF" ]; then
+      echo -e "\033[33m $DAEMON has no permission to run. \033[0m"
+      echo -e "\033[33m Or $CONF doesn't exist. \033[0m"
+      sleep 1
+      exit 1
+fi
+
+do_start() {
+    if [ "$PID" != "" ]; then
+        echo -e "\033[33m $PID already exists. \033[0m"
+        echo -e "\033[33m $DESC is already running or crashed. \033[0m"
+    else
+        nohup $DAEMON >> $NOHUPPATH &
+        sleep 1
+        echo -e "\033[36m $DESC started. \033[0m"
+    fi
+}
+
+do_stop() {
+    if [ "$PID" = "" ]; then
+        echo -e "\033[33m $PID doesn't exist. \033[0m"
+        echo -e "\033[33m $DESC isn't running. \033[0m"
+    else
+        echo -e "\033[32m $DESC Stopping ... \033[0m"
+        kill -9 $PID
+        sleep 1
+        echo -e "\033[36m $DESC stopped. \033[0m"
+    fi
+}
+
+do_test() {
+    echo -e "\033[32m $DESC Testing ... \033[0m"
+    if [ "$PID" = "" ]; then
+        echo -e "\033[32m $DESC pid is empty,dagent isn't running ... \033[0m"
+    else
+        echo -e "\033[32m $DESC pid is $PID ... \033[0m"
+    fi
+}
+
+#do_info() {
+#    $DAEMON -V
+#}
+
+case "$1" in
+ start)
+ do_start
+ ;;
+ stop)
+ do_stop
+ ;;
+ restart)
+ do_stop
+ do_start
+ ;;
+ test)
+ do_test
+ ;;
+ *)
+ echo "Usage: $SCRIPT {start|stop|restart|test}"
+ exit 2
+ ;;
+esac
+
+exit 0
