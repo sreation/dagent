@@ -30,7 +30,8 @@ func (*myServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
         common.IOWrite(w, http.StatusUnauthorized, 1, "remoteaddr not allow", "")
         return
     }
-    var h, ok = rest.RouterMap[r.URL.String()]
+    myUrl := r.URL.String()
+    var h, ok = rest.RouterMap[myUrl]
     if ok {
         if r.Method != h.Method {
             common.IOWrite(w, http.StatusMethodNotAllowed, 1, "method not allow", "")
@@ -39,6 +40,9 @@ func (*myServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
             return
         }
         h.Run(w, r)
+        if h.IsLog == true {
+            common.Info.Println(remoteaddr + " url: " + myUrl)
+        }
     }
     //if h, ok := rest.RouterMap[r.URL.String()]; ok {
     //    fmt.Println(h)

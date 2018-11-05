@@ -42,10 +42,18 @@ func CmdNginxTest() string {
     return Cmd(common.CfgXML.Nginx.CmdTest)
 }
 
-func ShowNginxConf() (string, bool){
+func CmdNginxCheck() string {
+    return Cmd(common.CfgXML.Nginx.CmdCheck)
+}
+
+func ShowNginxConf() (bool, string, string) {
     return common.ShowFile(common.CfgXML.Nginx.ConfdDir)
 }
 
-func ReadNginxConf(confName string) (string, bool){
+func ReadNginxConf(confName string) (bool, string, string) {
     return common.ReadFile(common.CfgXML.Nginx.ConfdDir + "/" + confName)
+}
+
+func WriteNginxConf(confName string, content string) (bool, string) {
+    return common.WriteFile(common.CfgXML.Nginx.ConfdDir + "/" + confName, content)
 }

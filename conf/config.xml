@@ -11,5 +11,6 @@
         <cmdStop>ls -l</cmdStop>
         <cmdReload>ls -l</cmdReload>
         <cmdTest>ls -l</cmdTest>
+        <cmdCheck>ps -ef|grep nginx|grep master</cmdCheck>
     </nginx>
 </config>

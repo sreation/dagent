@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <server>
+        <auth>true</auth>
+        <logPath>/var/log/dagent.log</logPath>
+        <remoteHost>0.0.0.0</remoteHost>
+    </server>
+    <nginx>
+        <confdDir>/usr/local/openresty-1.11.2.2/nginx/conf.d</confdDir>
+        <cmdStart>sudo /etc/init.d/openresty_inid_script start</cmdStart>
+        <cmdStop>sudo /etc/init.d/openresty_inid_script stop</cmdStop>
+        <cmdReload>sudo /etc/init.d/openresty_inid_script reload</cmdReload>
+        <cmdTest>sudo /etc/init.d/openresty_inid_script test</cmdTest>
+        <cmdCheck>ps -ef|grep nginx|grep master</cmdCheck>
+    </nginx>
+</config>

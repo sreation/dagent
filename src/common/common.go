@@ -59,6 +59,7 @@ type NginxStruct struct {
     CmdStop string `xml:"cmdStop"`
     CmdReload string `xml:"cmdReload"`
     CmdTest string `xml:"cmdTest"`
+    CmdCheck string `xml:"cmdCheck"`
 }
 
 
@@ -80,6 +81,17 @@ func ConfigParse() (result ConfigStruct, b bool){
 	}
     result.Nginx.ConfdDir = strings.TrimRight(result.Nginx.ConfdDir, "/")
     return result, b
+}
+
+func JsonDecode(s string) (bool, string) {
+    f := ""
+    err := json.Unmarshal([]byte(s), &f)
+
+    if err != nil {
+        return false, err.Error()
+    } else {
+        return true, f
+    }
 }
 
 func CommonInit() {
