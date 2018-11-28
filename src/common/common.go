@@ -17,12 +17,12 @@ const XMLPath = "/etc/dagent/config.xml"
 var CfgXML = ConfigStruct{}
 
 type IOStruct struct {
-    Code int        `json:"code"`
-    Message string  `json:"message"`
-    Data string     `json:"data"`
+    Code int         `json:"code"`
+    Message string   `json:"message"`
+    Data interface{} `json:"data"`
 }
 
-func JsonEncodeIO (c int, m string, da string) (data string) {
+func JsonEncodeIO (c int, m string, da interface{}) (data string) {
     /*
     int 0 - succ 1 - fail
     */
@@ -35,7 +35,7 @@ func JsonEncodeIO (c int, m string, da string) (data string) {
     return
 }
 
-func IOWrite (w http.ResponseWriter, httpCode int, code int, message string, data string) {
+func IOWrite (w http.ResponseWriter, httpCode int, code int, message string, data interface{}) {
     w.WriteHeader(httpCode)
     io.WriteString(w, JsonEncodeIO(code, message, data))
 }
@@ -55,6 +55,7 @@ type ServerStruct struct {
 
 type NginxStruct struct {
     ConfdDir string `xml:"confdDir"`
+    ConfdBakDir string `xml:"confdBakDir"`
     CmdStart string `xml:"cmdStart"`
     CmdStop string `xml:"cmdStop"`
     CmdReload string `xml:"cmdReload"`

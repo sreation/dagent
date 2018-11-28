@@ -7,10 +7,11 @@
     </server>
     <nginx>
         <confdDir>/tmp/dagent/conf.d</confdDir>
-        <cmdStart>ls</cmdStart>
-        <cmdStop>ls -l</cmdStop>
-        <cmdReload>ls -l</cmdReload>
-        <cmdTest>ls -l</cmdTest>
-        <cmdCheck>ps -ef|grep nginx|grep master</cmdCheck>
+        <confdBakDir>/tmp</confdBakDir>
+        <cmdStart>ps -ef|grep nginx</cmdStart>
+        <cmdStop>ps -ef|grep nginx</cmdStop>
+        <cmdReload>ps -ef|grep nginx</cmdReload>
+        <cmdTest>ps -ef|grep nginx</cmdTest>
+        <cmdCheck>ps -ef|grep nginx|grep master|grep -v grep</cmdCheck>
     </nginx>
 </config>

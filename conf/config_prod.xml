@@ -7,10 +7,11 @@
     </server>
     <nginx>
         <confdDir>/usr/local/openresty-1.11.2.2/nginx/conf.d</confdDir>
+        <confdBakDir>/tmp</confdBakDir>
         <cmdStart>sudo /etc/init.d/openresty_inid_script start</cmdStart>
         <cmdStop>sudo /etc/init.d/openresty_inid_script stop</cmdStop>
         <cmdReload>sudo /etc/init.d/openresty_inid_script reload</cmdReload>
         <cmdTest>sudo /etc/init.d/openresty_inid_script test</cmdTest>
-        <cmdCheck>ps -ef|grep nginx|grep master</cmdCheck>
+        <cmdCheck>ps -ef|grep nginx|grep master|grep -v grep</cmdCheck>
     </nginx>
 </config>

@@ -20,6 +20,7 @@ if [ ! -x "$DAEMON" ] || [ ! -f "$CONF" ]; then
 fi
 
 do_start() {
+    PID=`ps -ef|grep dagent|grep -v grep|grep -v $SCRIPTNAME|awk '{print $2}'`
     if [ "$PID" != "" ]; then
         echo -e "\033[33m $PID already exists. \033[0m"
         echo -e "\033[33m $DESC is already running or crashed. \033[0m"

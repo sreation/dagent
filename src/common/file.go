@@ -2,18 +2,19 @@ package common
 
 import (
     "io/ioutil"
-    "encoding/json"
+    //"encoding/json"
     "os"
 )
 
-func ShowFile(myPath string) (bool, string, string){
+func ShowFile(myPath string) (bool, string, interface{}) {
+    fileMap := []map[string]interface{}{}
+
     files, err := ioutil.ReadDir(myPath)
     if err != nil {
         Error.Println("operation:showfile " + err.Error())
-        return false, err.Error(), ""
+        return false, err.Error(), fileMap
     }
 
-    fileMap := []map[string]interface{}{}
     for _, f := range files {
         x := map[string]interface{}{
             "name": f.Name(),
@@ -23,25 +24,25 @@ func ShowFile(myPath string) (bool, string, string){
         fileMap = append(fileMap, x)
     }
 
-    data, err := json.Marshal(fileMap)
+    //data, err := json.Marshal(fileMap)
     if err != nil {
         Error.Println("operation:showfile-json " + err.Error())
-        return false, err.Error(), ""
+        return false, err.Error(), fileMap
     }
-    return true, "", string(data)
+    //return true, "", string(data)
+    return true, "", fileMap
 }
 
-//func FileExist(path string) (bool, bool) {
-//    _, err := os.Stat(path)
-//    if err == nil {
-//        return true, true
-//    }
-//    if os.IsNotExist(err) {
-//        return false, true
-//    }
-//    Error.Println("operation:fileexist "+path+", fail.")
-//    return false, false
-//}
+func FileExist(path string) (bool, error) {
+    _, err := os.Stat(path)
+	if err == nil {
+		return true, nil
+	}
+	if os.IsNotExist(err) {
+		return false, nil
+	}
+	return false, err
+}
 
 func ReadFile(filePath string) (bool, string, string) {
     result, err := ioutil.ReadFile(filePath)

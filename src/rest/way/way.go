@@ -39,7 +39,7 @@ func NginxCheck(w http.ResponseWriter, r *http.Request) {
     if result != "" {
         common.IOWrite(w, http.StatusOK, 0, "service: nginx , nginx is check ok", result)
     }else {
-        common.IOWrite(w, http.StatusOK, 1, "service: nginx , nginx test failed", result)
+        common.IOWrite(w, http.StatusOK, 1, "service: nginx , nginx check failed", result)
     }
 }
 
